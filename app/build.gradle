@@ -57,4 +57,12 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger"
     kapt "com.google.dagger:dagger-android-processor:$dagger"
     implementation "com.google.dagger:dagger-android-support:$dagger"
+
+    //https://github.com/square/retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    //https://github.com/square/okhttp
+    implementation "com.squareup.okhttp3:okhttp:$okhttp"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    //解决打印找不到ssl类的问题
+    implementation 'org.conscrypt:conscrypt-android:2.2.1'
 }
