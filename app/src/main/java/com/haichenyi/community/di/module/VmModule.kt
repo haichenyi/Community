@@ -3,6 +3,7 @@ package com.haichenyi.community.di.module
 import androidx.lifecycle.ViewModel
 import com.haichenyi.community.di.scope.VmKey
 import com.haichenyi.community.vm.FragHomeVm
+import com.haichenyi.community.vm.FragMainVm
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -18,4 +19,12 @@ abstract class FragHomeModule {
   @IntoMap
   @VmKey(FragHomeVm::class)
   abstract fun getViewModel(fragHomeVm: FragHomeVm): ViewModel
+}
+
+@Module
+abstract class FragMainModule {
+  @Binds
+  @IntoMap
+  @VmKey(FragMainVm::class)
+  abstract fun getViewModel(fragMainVm: FragMainVm): ViewModel
 }

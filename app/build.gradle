@@ -69,4 +69,8 @@ dependencies {
     //https://developer.android.google.cn/guide/navigation/
     implementation "androidx.navigation:navigation-fragment-ktx:$extension"
     implementation "androidx.navigation:navigation-ui-ktx:$extension"
+
+    // https://mvnrepository.com/artifact/androidx.viewpager2/viewpager2
+    implementation group: 'androidx.viewpager2', name: 'viewpager2', version: '1.0.0'
+
 }

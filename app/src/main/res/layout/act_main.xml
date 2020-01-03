@@ -3,43 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!--    <data>
-
-            <variable
-                name="userInfo"
-                type="com.haichenyi.mvvm.data.bean.UserBean" />
-        </data>
-
-        <LinearLayout
-            android:id="@id/root"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{userInfo.userName}" />
-
-            <TextView
-                android:id="@+id/tvAge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{userInfo.userAge}" />
-
-            <TextView
-                android:id="@+id/tvSex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{userInfo.userSex}" />
-
-            <TextView
-                android:id="@+id/tvAddr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{userInfo.userAddr}" />
-        </LinearLayout>-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/root"
         android:layout_width="match_parent"
@@ -56,6 +19,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navGraph="@navigation/nav_graph_home" />
+            app:navGraph="@navigation/nav_graph_main" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

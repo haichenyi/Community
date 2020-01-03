@@ -2,6 +2,7 @@ package com.haichenyi.community.di.module
 
 import com.haichenyi.community.di.component.FragComponent
 import com.haichenyi.community.ui.frag.FragHome
+import com.haichenyi.community.ui.frag.FragMain
 import com.haichenyi.mvvm.di.scope.FragScoped
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -16,4 +17,8 @@ internal abstract class FragModule {
   @FragScoped
   @ContributesAndroidInjector(modules = [FragHomeModule::class])
   internal abstract fun fragHome(): FragHome
+
+  @FragScoped
+  @ContributesAndroidInjector(modules = [FragMainModule::class])
+  internal abstract fun fragMain(): FragMain
 }

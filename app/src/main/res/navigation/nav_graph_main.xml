@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph_home"
-    app:startDestination="@id/fragHome"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/fragMain"
     tools:ignore="UnusedNavigation">
 
     <fragment
-        android:id="@+id/fragHome"
-        android:name="com.haichenyi.community.ui.frag.FragHome"
-        android:label="FragHome" />
+        android:id="@+id/fragMain"
+        android:name="com.haichenyi.community.ui.frag.FragMain"
+        android:label="FragMain" />
 </navigation>
