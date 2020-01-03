@@ -65,4 +65,8 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
     //解决打印找不到ssl类的问题
     implementation 'org.conscrypt:conscrypt-android:2.2.1'
+
+    //https://developer.android.google.cn/guide/navigation/
+    implementation "androidx.navigation:navigation-fragment-ktx:$extension"
+    implementation "androidx.navigation:navigation-ui-ktx:$extension"
 }

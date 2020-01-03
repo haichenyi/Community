@@ -1,5 +1,6 @@
 package com.haichenyi.community.base
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -17,9 +18,10 @@ import javax.inject.Inject
 
 /**
  * @Author: 海晨忆
- * @Desc:
+ * @Desc: activity的基类
  * @Date: 2020/1/2-16:54
  */
+@SuppressLint("Registered")
 open class BaseAct<VB : ViewDataBinding>(@LayoutRes layoutId: Int) : AppCompatActivity(layoutId),
   HasAndroidInjector {
   @Inject
