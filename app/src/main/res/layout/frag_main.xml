@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <View
+<!--        <View
             style="@style/Line"
             app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
             tools:ignore="MissingConstraints" />
@@ -16,9 +21,11 @@
             android:id="@+id/bottomNavigation"
             android:layout_width="@dimen/dp_0"
             android:layout_height="@dimen/bottomNavigation"
+            android:background="@color/colorWhite"
             app:itemIconTint="@color/color_item"
             app:itemTextColor="@color/color_item"
             app:labelVisibilityMode="labeled"
+            app:itemRippleColor="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,18 +35,19 @@
             android:id="@+id/vp2"
             android:layout_width="@dimen/dp_0"
             android:layout_height="@dimen/dp_0"
-            android:background="@color/colorGreen"
             app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />-->
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_30"
             android:layout_marginBottom="@dimen/dp_70"
             android:src="@drawable/add"
+            android:onClick="@{listener}"
             app:backgroundTint="@color/colorGreen"
             app:borderWidth="@dimen/dp_0"
             app:elevation="@dimen/dp_6"

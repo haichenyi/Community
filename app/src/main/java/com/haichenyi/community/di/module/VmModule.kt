@@ -53,3 +53,11 @@ abstract class FragAuthorVmModule {
   @VmKey(FragAuthorVm::class)
   abstract fun getViewModel(fragAuthorVm: FragAuthorVm): ViewModel
 }
+
+@Module
+abstract class FragTestVmModule {
+  @Binds
+  @IntoMap
+  @VmKey(FragTestVm::class)
+  abstract fun getViewModel(fragTestVm: FragTestVm): ViewModel
+}

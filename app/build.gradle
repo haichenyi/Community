@@ -1,11 +1,8 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
-
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -70,7 +67,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$extension"
     implementation "androidx.navigation:navigation-ui-ktx:$extension"
 
-    // https://mvnrepository.com/artifact/androidx.viewpager2/viewpager2
-    implementation group: 'androidx.viewpager2', name: 'viewpager2', version: '1.0.0'
+    //https://github.com/material-components/material-components-android
+    implementation 'com.google.android.material:material:1.2.0-alpha03'
 
 }

@@ -1,7 +1,9 @@
 package com.haichenyi.community.ui.act
 
 import android.os.Bundle
+import androidx.navigation.NavHostController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.haichenyi.community.R
 import com.haichenyi.community.base.BaseAct
 import com.haichenyi.community.base.BaseApp

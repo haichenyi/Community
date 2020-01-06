@@ -33,4 +33,8 @@ internal abstract class FragModule {
   @FragScoped
   @ContributesAndroidInjector(modules = [FragAuthorVmModule::class])
   internal abstract fun fragAuthor(): FragAuthor
+
+  @FragScoped
+  @ContributesAndroidInjector(modules = [FragTestVmModule::class])
+  internal abstract fun fragTest(): FragTest
 }
