@@ -2,6 +2,7 @@ package com.haichenyi.community.base
 
 import com.haichenyi.community.di.component.AppComponent
 import com.haichenyi.community.di.component.DaggerAppComponent
+import com.haichenyi.community.utils.ToastUtils
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 
@@ -22,6 +23,7 @@ class BaseApp : DaggerApplication() {
   override fun onCreate() {
     super.onCreate()
     baseApp = this
+    ToastUtils.init(this)
   }
 
 }

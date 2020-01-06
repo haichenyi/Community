@@ -5,8 +5,8 @@ import javax.inject.Inject
 
 /**
  * @Author: 海晨忆
- * @Desc: 主页VM
- * @Date: 2020/1/3-9:46
+ * @Desc: 广场VM
+ * @Date: 2020/1/3-17:02
  */
-class FragHomeVm @Inject constructor() : BaseViewModel() {
+class FragSquareVm @Inject constructor() : BaseViewModel() {
 }

@@ -6,4 +6,6 @@
     <color name="colorGreen">#16C4AF</color>
     <color name="colorGray">#eeeeee</color>
     <color name="colorGray9">#999999</color>
+    <color name="colorTran">#00FFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
 </resources>
