@@ -54,6 +54,7 @@ class FragVideoUpload : BaseFrag<FragVideoUploadBinding, FragVideoUploadVm>
 
               override fun onCompressCompleted(filePath: String?) {
                 LogUtil.v(LogUtil.LOG_WZ, "压缩完成：$filePath")
+
               }
             })
         }
