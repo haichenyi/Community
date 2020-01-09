@@ -1,11 +1,19 @@
 package com.haichenyi.community.utils
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.media.MediaMetadataRetriever
+import java.lang.ref.WeakReference
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-object Gutil {
+/**
+ * @Author: 海晨忆
+ * @Desc:
+ * @Date: 2020/1/9-14:41
+ */
+object VideoUtils {
   fun parseTime(seconds: Int): String {
     var format = "mm:ss"
     when {
@@ -66,5 +74,21 @@ object Gutil {
     } else {
       "$name.mp4"
     }
+  }
+
+  /**
+   * @desc: 获取视频某一帧的图片
+   * @param path 视频路径
+   * @param timeUs 微秒
+   * @return: Bitmap
+   */
+  fun getVideoFrame(path: String?, timeUs: Long): WeakReference<Bitmap?> {
+    val media = MediaMetadataRetriever()
+    try {
+      media.setDataSource(path)
+    } catch (e: Exception) {
+      return WeakReference(null)
+    }
+    return WeakReference(media.getFrameAtTime(timeUs))
   }
 }

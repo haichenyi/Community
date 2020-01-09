@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.haichenyi.community.entity.VideoInfo;
+import com.haichenyi.community.utils.ThreadManager;
 
 import java.util.ArrayList;
 
@@ -18,13 +19,23 @@ public class FFmpegCmd {
     System.loadLibrary("ffmpeg-cmd");
   }
 
-  //执行FFmpeg命令
+  /**
+   * 执行FFmpeg命令
+   */
   private static native int run(int cmdLen, String[] cmd);
 
-  //获取命令执行进度
+  /**
+   * 获取命令执行进度
+   *
+   * @return 当前执行的进度
+   */
   private static native int getProgress();
 
-  //获取转码速率
+  /**
+   * 获取转码速率
+   *
+   * @return 转码速率
+   */
   private static native double getSpeed();
 
 
@@ -49,15 +60,15 @@ public class FFmpegCmd {
   /**
    * @param srcPath   视频源路径
    * @param outPath   视频输出路径
-   * @param targetFPS 视频输出帧率
+   * @param targetFps 视频输出帧率
    * @param bitrate   输出码率
    * @param duration  视频时长(ms)
-   * @param listener
+   * @param listener  回调
    */
-  public static void transcode(String srcPath, String outPath, int targetFPS, int bitrate,
+  public static void transCode(String srcPath, String outPath, int targetFps, int bitrate,
                                int targetWidth, int targetHeight, long duration, String presets,
                                VideoInfo info, ProgressListener listener) {
-    new Thread(() -> {
+    ThreadManager.getDefault().execute(() -> {
       int frame = -1;
       boolean started = false;
       while (frame != 0) {
@@ -68,7 +79,7 @@ public class FFmpegCmd {
         }
         if (started) {
           frame = frameTemp;
-          progress = (int) Math.ceil(frame * 100 / (targetFPS * duration / 1000));
+          progress = (int) Math.ceil(frame * 100 / (targetFps * duration / 1000));
           double speed = getSpeed();
           long timeRemaining = 0;
           if (speed > 0) {
@@ -85,11 +96,11 @@ public class FFmpegCmd {
           e.printStackTrace();
         }
       }
-    }).start();
-    transcode(srcPath, outPath, targetFPS, bitrate, targetWidth, targetHeight, presets, info);
+    });
+    transCode(srcPath, outPath, targetFps, bitrate, targetWidth, targetHeight, presets, info);
   }
 
-  private static void transcode(String srcPath, String outPath, int targetFPS, int bitrate, int width, int height, String presets, VideoInfo info) {
+  private static void transCode(String srcPath, String outPath, int targetFps, int bitrate, int width, int height, String presets, VideoInfo info) {
     ArrayList<String> cmd = new ArrayList<>();
     cmd.add("ffmpeg");
     //cmd.add("-d");
@@ -97,8 +108,8 @@ public class FFmpegCmd {
 
     //当rotation为0时使用硬件解码器
     // rotation不为0时使用硬件解码视频画面可能会变绿
-    if (info.rotation == 0) {
-      switch (info.videoCodec) {
+    if (info.getRotation() == 0) {
+      switch (info.getVideoCodec()) {
         case "h264":
           cmd.add("-c:v");
           cmd.add("h264_mediacodec");
@@ -125,7 +136,7 @@ public class FFmpegCmd {
       cmd.add(width + "x" + height);
     }
     cmd.add("-r");
-    cmd.add(String.valueOf(targetFPS));
+    cmd.add(String.valueOf(targetFps));
     cmd.add(outPath);
     run(cmd);
   }
@@ -154,7 +165,8 @@ public class FFmpegCmd {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    VideoInfo info = new VideoInfo();
+    //这个值毫无作用
+    VideoInfo info = new VideoInfo(0, 0, 0, 0, 0, 0, "h264");
     if (s != null) {
       info = new Gson().fromJson(s, VideoInfo.class);
     }

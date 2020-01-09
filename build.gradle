@@ -10,6 +10,7 @@ buildscript {
         okhttp = '4.2.2'
         navigationVersion = '2.2.0-rc04'
         permission = "4.6.0"
+        glide="4.11.0"
     }
     repositories {
         google()

@@ -5,19 +5,21 @@ import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.View
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.haichenyi.community.R
-import com.haichenyi.community.base.BaseApp
 import com.haichenyi.community.base.BaseFrag
+import com.haichenyi.community.common.GlideApp
 import com.haichenyi.community.common.showPermissionDialog
 import com.haichenyi.community.common.showSettingDialog
 import com.haichenyi.community.common.showToast
 import com.haichenyi.community.databinding.FragVideoUploadBinding
 import com.haichenyi.community.entity.VideoInfo
 import com.haichenyi.community.jni.FFmpegCmd
-import com.haichenyi.community.utils.Gutil
 import com.haichenyi.community.utils.LogUtil
+import com.haichenyi.community.utils.VideoUtils
 import com.haichenyi.community.vm.FragVideoUploadVm
 import kotlinx.android.synthetic.main.frag_video_upload.*
 import permissions.dispatcher.*
@@ -30,7 +32,6 @@ import permissions.dispatcher.*
 @RuntimePermissions
 class FragVideoUpload : BaseFrag<FragVideoUploadBinding, FragVideoUploadVm>
   (R.layout.frag_video_upload) {
-
   private lateinit var path: String
   private lateinit var outPath: String
   private lateinit var videoInfo: VideoInfo
@@ -43,21 +44,20 @@ class FragVideoUpload : BaseFrag<FragVideoUploadBinding, FragVideoUploadVm>
           clVideo.visibility = View.GONE
           img.visibility = View.VISIBLE
         }
-        R.id.btnCompress -> {
-          FFmpegCmd.transcode(
-            path, outPath, 25, 200, videoInfo.width
-            , videoInfo.height, videoInfo.duration, "superfast", videoInfo
-            , object : FFmpegCmd.ProgressListener {
-              override fun onProgressUpdate(progress: Int, timeRemaining: Long) {
-                LogUtil.v(LogUtil.LOG_WZ, "$progress%----$timeRemaining")
-              }
+        R.id.btnCompress -> vm.compress(
+          path,
+          outPath,
+          videoInfo,
+          object : FFmpegCmd.ProgressListener {
+            override fun onProgressUpdate(progress: Int, timeRemaining: Long) {
+              LogUtil.v(LogUtil.LOG_WZ, "$progress%----$timeRemaining")
+            }
 
-              override fun onCompressCompleted(filePath: String?) {
-                LogUtil.v(LogUtil.LOG_WZ, "压缩完成：$filePath")
+            override fun onCompressCompleted(filePath: String?) {
+              LogUtil.v(LogUtil.LOG_WZ, "压缩完成：$filePath")
+            }
 
-              }
-            })
-        }
+          })
       }
     }
   }
@@ -66,16 +66,7 @@ class FragVideoUpload : BaseFrag<FragVideoUploadBinding, FragVideoUploadVm>
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     if (requestCode == PICK_VIDEO_REQUEST && resultCode == RESULT_OK && null != data) {
-      val uri = data.data
-      val filePathColumn = arrayOf(MediaStore.Video.Media.DATA)
-      val cursor = BaseApp.baseApp.contentResolver.query(
-        uri!!, filePathColumn, null
-        , null, null
-      )
-      cursor?.moveToFirst()
-      val columnIndex = cursor?.getColumnIndex(filePathColumn[0])
-      path = cursor?.getString(columnIndex!!)!!
-      cursor.close()
+      path = vm.getFilePath(data)
       initVideo(path)
     }
   }
@@ -90,16 +81,20 @@ class FragVideoUpload : BaseFrag<FragVideoUploadBinding, FragVideoUploadVm>
     img.visibility = View.GONE
     tvPath.text = path
     videoInfo = FFmpegCmd.getVideoInfo(path)
-    tvDuration.text = "视频时长：" + Gutil.parseTime(videoInfo.duration.toInt() / 1000)
+    GlideApp.with(this).load(VideoUtils.getVideoFrame(path, 2 * 1000 * 1000).get())
+//      .apply(RequestOptions.bitmapTransform(CircleCrop()))
+      .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+      .into(imgVideoFrame)
+    tvDuration.text = "视频时长：" + VideoUtils.parseTime(videoInfo.duration.toInt() / 1000)
     tvFps.text = "FPS:" + videoInfo.fps
     tvResolution.text = "分辨率：" + videoInfo.width + "x" + videoInfo.height
-    tvBitrate.text = "码率：" + Gutil.bitrateFormat(videoInfo.bitrate)
+    tvBitrate.text = "码率：" + VideoUtils.bitrateFormat(videoInfo.bitrate)
     tvCodec.text = "Video Codec: " + videoInfo.videoCodec
     tvRotation.text = "Video Rotation: " + videoInfo.rotation + "°"
 
     tvTargetFPS.text = "转码后的FPS:30"
     tvTargetBitrate.text = "转码后的码率:4000"
-    outPath = Gutil.getVideoFileDir(context!!) + Gutil.getVideoFileName("")
+    outPath = VideoUtils.getVideoFileDir(context!!) + VideoUtils.getVideoFileName("")
     tvFileAfter.text = outPath
   }
 
