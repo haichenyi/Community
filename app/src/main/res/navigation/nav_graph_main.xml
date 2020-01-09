@@ -18,15 +18,8 @@
             app:popEnterAnim="@anim/slide_pop_enter_anim"
             app:popExitAnim="@anim/slide_pop_exit_anim" />
         <action
-            android:id="@+id/to_frag_home"
-            app:destination="@id/fragHome"
-            app:enterAnim="@anim/slide_enter_anim"
-            app:exitAnim="@anim/slide_exit_anim"
-            app:popEnterAnim="@anim/slide_pop_enter_anim"
-            app:popExitAnim="@anim/slide_pop_exit_anim" />
-        <action
-            android:id="@+id/to_frag_author"
-            app:destination="@id/fragAuthor"
+            android:id="@+id/main_to_video_upload"
+            app:destination="@id/fragVideoUpload"
             app:enterAnim="@anim/slide_enter_anim"
             app:exitAnim="@anim/slide_exit_anim"
             app:popEnterAnim="@anim/slide_pop_enter_anim"
@@ -49,5 +42,10 @@
         android:name="com.haichenyi.community.ui.frag.FragAuthor"
         android:label="FragAuthor"
         tools:layout="@layout/frag_author" />
+    <fragment
+        android:id="@+id/fragVideoUpload"
+        android:name="com.haichenyi.community.ui.frag.FragVideoUpload"
+        android:label="FragVideoUpload"
+        tools:layout="@layout/frag_video_upload" />
 
 </navigation>

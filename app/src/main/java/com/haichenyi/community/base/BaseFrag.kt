@@ -37,17 +37,18 @@ open class BaseFrag<VB : ViewDataBinding, VM : BaseViewModel>(@LayoutRes layoutI
     super.onAttach(context)
   }
 
-  override fun onResume() {
+  /*override fun onResume() {
     super.onResume()
     if (initialized.not()) {
       initialized = true
       onLazyInitView(arguments)
     }
-  }
+  }*/
 
   final override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     rootView = view
+    onLazyInitView(arguments)
   }
 
   @Suppress("UNCHECKED_CAST")

@@ -18,6 +18,15 @@ android {
                 cppFlags ""
             }
         }
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['src/main/cpp/ffmpeg/prebuilt/']
+        }
     }
     buildTypes {
         release {
@@ -28,7 +37,6 @@ android {
     externalNativeBuild {
         cmake {
             path "src/main/cpp/CMakeLists.txt"
-            version "3.10.2"
         }
     }
     dataBinding {
@@ -70,4 +78,6 @@ dependencies {
     //https://github.com/material-components/material-components-android
     implementation 'com.google.android.material:material:1.2.0-alpha03'
 
+    implementation "org.permissionsdispatcher:permissionsdispatcher:$permission"
+    kapt "org.permissionsdispatcher:permissionsdispatcher-processor:$permission"
 }

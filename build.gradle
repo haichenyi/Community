@@ -9,6 +9,7 @@ buildscript {
         retrofit = '2.7.0'
         okhttp = '4.2.2'
         navigationVersion = '2.2.0-rc04'
+        permission = "4.6.0"
     }
     repositories {
         google()

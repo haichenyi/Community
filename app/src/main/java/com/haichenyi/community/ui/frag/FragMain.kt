@@ -9,8 +9,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.haichenyi.community.R
 import com.haichenyi.community.base.BaseFrag
+import com.haichenyi.community.common.createFrag
 import com.haichenyi.community.common.showToast
 import com.haichenyi.community.databinding.FragMainBinding
+import com.haichenyi.community.databinding.FragTestBinding
 import com.haichenyi.community.ui.adapter.FragmentAdapter
 import com.haichenyi.community.vm.FragMainVm
 import javax.inject.Inject
@@ -29,25 +31,25 @@ class FragMain : BaseFrag<FragMainBinding, FragMainVm>(R.layout.frag_main) {
 
   private lateinit var viewPager2: ViewPager2
 
+  var i = 0
+
   override fun initView(binding: FragMainBinding, bundle: Bundle?) {
     super.initView(binding, bundle)
-    /*viewPager2 = binding.vp2.also {
+    viewPager2 = binding.vp2.also {
       it.adapter = FragmentAdapter(this, fragments)
       it.isUserInputEnabled = false
       it.offscreenPageLimit = fragments.size - 1
     }
 
     binding.bottomNavigation.setOnNavigationItemSelectedListener {
+
       viewPager2.setCurrentItem(itemInts.indexOf(it.itemId), false)
       true
-    }*/
+    }
     binding.setListener {
       when (it.id) {
         R.id.fab -> {
-//          val navHostFragment = NavHostFragment.create(R.navigation.nav_graph_main)
-//          navHostFragment.navController.navigate(FragHomeDirections.toFragAuthor())
-          showToast("111111111")
-          findNavController().navigate(FragMainDirections.toFragAuthor())
+          findNavController().navigate(FragMainDirections.mainToVideoUpload())
         }
       }
     }
@@ -55,13 +57,13 @@ class FragMain : BaseFrag<FragMainBinding, FragMainVm>(R.layout.frag_main) {
 
   override fun onResume() {
     super.onResume()
-    /*if (viewPager2.adapter == null) {
+    if (viewPager2.adapter == null) {
       viewPager2.adapter = FragmentAdapter(this, fragments)
-    }*/
+    }
   }
 
   override fun onDestroyView() {
-//    viewPager2.adapter = null
+    viewPager2.adapter = null
     super.onDestroyView()
   }
 }

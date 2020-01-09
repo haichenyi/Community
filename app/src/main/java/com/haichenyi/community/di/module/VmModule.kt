@@ -61,3 +61,11 @@ abstract class FragTestVmModule {
   @VmKey(FragTestVm::class)
   abstract fun getViewModel(fragTestVm: FragTestVm): ViewModel
 }
+
+@Module
+abstract class FragVideoUploadVmModule {
+  @Binds
+  @IntoMap
+  @VmKey(FragVideoUploadVm::class)
+  abstract fun getViewModel(fragVideoUploadVm: FragVideoUploadVm): ViewModel
+}
