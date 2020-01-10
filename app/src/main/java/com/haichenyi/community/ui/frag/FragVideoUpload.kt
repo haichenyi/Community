@@ -11,15 +11,14 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.haichenyi.community.R
 import com.haichenyi.community.base.BaseFrag
-import com.haichenyi.community.common.GlideApp
 import com.haichenyi.community.common.showPermissionDialog
 import com.haichenyi.community.common.showSettingDialog
 import com.haichenyi.community.common.showToast
 import com.haichenyi.community.databinding.FragVideoUploadBinding
 import com.haichenyi.community.entity.VideoInfo
 import com.haichenyi.community.jni.FFmpegCmd
-import com.haichenyi.community.utils.LogUtil
-import com.haichenyi.community.utils.VideoUtils
+import com.haichenyi.community.utils.*
+import com.haichenyi.community.utils.glide.GlideApp
 import com.haichenyi.community.vm.FragVideoUploadVm
 import kotlinx.android.synthetic.main.frag_video_upload.*
 import permissions.dispatcher.*
@@ -50,11 +49,11 @@ class FragVideoUpload : BaseFrag<FragVideoUploadBinding, FragVideoUploadVm>
           videoInfo,
           object : FFmpegCmd.ProgressListener {
             override fun onProgressUpdate(progress: Int, timeRemaining: Long) {
-              LogUtil.v(LogUtil.LOG_WZ, "$progress%----$timeRemaining")
+              logV( "$progress%----$timeRemaining")
             }
 
             override fun onCompressCompleted(filePath: String?) {
-              LogUtil.v(LogUtil.LOG_WZ, "压缩完成：$filePath")
+              logD("压缩完成：$filePath")
             }
 
           })
@@ -83,7 +82,8 @@ class FragVideoUpload : BaseFrag<FragVideoUploadBinding, FragVideoUploadVm>
     videoInfo = FFmpegCmd.getVideoInfo(path)
     GlideApp.with(this).load(VideoUtils.getVideoFrame(path, 2 * 1000 * 1000).get())
 //      .apply(RequestOptions.bitmapTransform(CircleCrop()))
-      .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+//      .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+      .circleCrop()
       .into(imgVideoFrame)
     tvDuration.text = "视频时长：" + VideoUtils.parseTime(videoInfo.duration.toInt() / 1000)
     tvFps.text = "FPS:" + videoInfo.fps

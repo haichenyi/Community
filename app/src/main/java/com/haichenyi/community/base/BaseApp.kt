@@ -5,6 +5,8 @@ import com.haichenyi.community.di.component.DaggerAppComponent
 import com.haichenyi.community.utils.ToastUtils
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
+import okhttp3.OkHttpClient
+import javax.inject.Inject
 
 /**
  * @Author: 海晨忆
@@ -12,9 +14,8 @@ import dagger.android.support.DaggerApplication
  * @Date: 2020/1/2 16:09
  */
 class BaseApp : DaggerApplication() {
-  companion object {
-    lateinit var baseApp: BaseApp
-  }
+  @Inject
+  lateinit var okHttpClient: OkHttpClient
 
   val appComponent: AppComponent = DaggerAppComponent.factory().create(this) as AppComponent
 
@@ -26,4 +27,7 @@ class BaseApp : DaggerApplication() {
     ToastUtils.init(this)
   }
 
+  companion object {
+    lateinit var baseApp: BaseApp
+  }
 }

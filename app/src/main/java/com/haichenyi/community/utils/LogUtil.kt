@@ -11,13 +11,12 @@ import java.util.*
  * @Home haichenyi.com
  */
 object LogUtil {
-  const val LOG_WZ = "wz"
-  private const val V = Log.VERBOSE
-  private const val D = Log.DEBUG
-  private const val I = Log.INFO
-  private const val W = Log.WARN
-  private const val E = Log.ERROR
-  private const val A = Log.ASSERT
+  const val V = Log.VERBOSE
+  const val D = Log.DEBUG
+  const val I = Log.INFO
+  const val W = Log.WARN
+  const val E = Log.ERROR
+  const val A = Log.ASSERT
   private var sConsoleFilter = V
 
   private const val MAX_LEN = 4000
@@ -29,7 +28,7 @@ object LogUtil {
   private var sLogSwitch = true // log总开关，默认开
   private var sLog2ConsoleSwitch = true // logcat是否打印，默认打印
 
-  private var sGlobalTag: String = "log" // log标签
+  var sGlobalTag: String = "wz" // log标签
 
   private const val ARGS = "args"
   private val LINE_SEP = System.getProperty("line.separator")
@@ -40,55 +39,7 @@ object LogUtil {
   private const val BOTTOM_BORDER =
     "╚═══════════════════════════════════════════════════════════════════════════════════════════════════"
 
-  fun v(content: String) {
-    log(V, sGlobalTag, content)
-  }
-
-  fun v(tag: String, vararg content: String) {
-    log(V, tag, *content)
-  }
-
-  fun d(content: String) {
-    log(D, sGlobalTag, content)
-  }
-
-  fun d(tag: String, vararg content: String) {
-    log(D, tag, *content)
-  }
-
-  fun i(content: String) {
-    log(I, sGlobalTag, content)
-  }
-
-  fun i(tag: String, vararg content: String) {
-    log(I, tag, *content)
-  }
-
-  fun w(content: String) {
-    log(W, sGlobalTag, content)
-  }
-
-  fun w(tag: String, vararg content: String) {
-    log(W, tag, *content)
-  }
-
-  fun e(content: String) {
-    log(E, sGlobalTag, content)
-  }
-
-  fun e(tag: String, vararg content: String) {
-    log(E, tag, *content)
-  }
-
-  fun a(content: String) {
-    log(A, sGlobalTag, content)
-  }
-
-  fun a(tag: String, vararg content: String) {
-    log(A, tag, *content)
-  }
-
-  private fun log(type: Int, tag: String, vararg content: String) {
+  fun log(type: Int, tag: String, vararg content: String) {
     if (!BuildConfig.DEBUG) {
       return
     }
@@ -137,7 +88,7 @@ object LogUtil {
   }
 
   private fun isSpace(tag: String?) =
-    if (null == tag) true else (0 until tag.length).all { Character.isWhitespace(tag[it]) }
+    if (null == tag) true else (tag.indices).all { Character.isWhitespace(tag[it]) }
 
   private fun processBody(vararg contents: String) = if (contents.size == 1) {
     val content = contents[0]
@@ -194,4 +145,52 @@ object LogUtil {
   private fun print(type: Int, tag: String, msg: String) {
     Log.println(type, tag, msg)
   }
+}
+
+fun Any.logV(content: String) {
+  LogUtil.log(LogUtil.V, LogUtil.sGlobalTag, content)
+}
+
+fun Any.logV(tag: String, vararg content: String) {
+  LogUtil.log(LogUtil.V, tag, *content)
+}
+
+fun Any.logD(content: String) {
+  LogUtil.log(LogUtil.D, LogUtil.sGlobalTag, content)
+}
+
+fun Any.logD(tag: String, vararg content: String) {
+  LogUtil.log(LogUtil.D, tag, *content)
+}
+
+fun Any.logI(content: String) {
+  LogUtil.log(LogUtil.I, LogUtil.sGlobalTag, content)
+}
+
+fun Any.logI(tag: String, vararg content: String) {
+  LogUtil.log(LogUtil.I, tag, *content)
+}
+
+fun Any.logW(content: String) {
+  LogUtil.log(LogUtil.W, LogUtil.sGlobalTag, content)
+}
+
+fun Any.logW(tag: String, vararg content: String) {
+  LogUtil.log(LogUtil.W, tag, *content)
+}
+
+fun Any.logE(content: String) {
+  LogUtil.log(LogUtil.E, LogUtil.sGlobalTag, content)
+}
+
+fun Any.logE(tag: String, vararg content: String) {
+  LogUtil.log(LogUtil.E, tag, *content)
+}
+
+fun Any.logA(content: String) {
+  LogUtil.log(LogUtil.A, LogUtil.sGlobalTag, content)
+}
+
+fun Any.logA(tag: String, vararg content: String) {
+  LogUtil.log(LogUtil.A, tag, *content)
 }

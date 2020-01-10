@@ -6,7 +6,7 @@ import com.haichenyi.community.data.http.HttpApi
 import com.haichenyi.community.data.http.HttpLoggingInterceptor
 import com.haichenyi.community.data.http.HttpProtocol
 import com.haichenyi.community.data.http.LiveDataCallAdapterFactory
-import com.haichenyi.community.utils.LogUtil
+import com.haichenyi.community.utils.logV
 import dagger.Module
 import dagger.Provides
 import okhttp3.*
@@ -42,7 +42,7 @@ class HttpModule {
       val httpLoggingInterceptor =
         HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
           override fun log(message: String) {
-            LogUtil.v(LogUtil.LOG_WZ, message)
+            logV(message)
           }
         })
       httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
